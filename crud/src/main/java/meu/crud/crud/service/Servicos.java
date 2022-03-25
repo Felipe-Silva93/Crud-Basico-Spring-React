@@ -41,6 +41,16 @@ public class Servicos {
 		}
 	}
 	
+	public ResponseEntity<Usuario>atualizarUsuario(Usuario usuarioAtualizar){
+		return crudrepository.findByEmail(usuarioAtualizar.getEmail())
+				.map(usuarioExistente->{
+					usuarioExistente.setNome(usuarioAtualizar.getNome());
+					usuarioExistente.setSenha(usuarioAtualizar.getSenha());
+					return ResponseEntity.status(201).body(crudrepository.save(usuarioAtualizar));
+					
+				}).orElse(ResponseEntity.status(401).build());
+	}
+	
 	
 	
 
