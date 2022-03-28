@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import meu.crud.crud.service.Servicos;
 import meu.crud.crud.usuario.Usuario;
+import meu.crud.crud.usuarioDTO.UsuarioDTO;
 
 @RestController
 @RequestMapping("/crud")
@@ -40,9 +41,9 @@ public class CrudController {
 	}
 	
 	@PostMapping("/cadastrar")
-	public ResponseEntity<Usuario>postar(@RequestBody Usuario usuario ){
+	public ResponseEntity<Usuario>postar(@RequestBody UsuarioDTO dto ){
 		
-		return servicos.postarUsuario(usuario);
+		return servicos.postarUsuario(dto);
 	}
 	
 	@PutMapping("/atualizar/{id}")

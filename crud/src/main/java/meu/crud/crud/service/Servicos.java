@@ -5,10 +5,12 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import meu.crud.crud.repository.CrudRepository;
 import meu.crud.crud.usuario.Usuario;
+import meu.crud.crud.usuarioDTO.UsuarioDTO;
 
 @Service
 public class Servicos {
@@ -31,13 +33,16 @@ public class Servicos {
 				.map(idExiste-> ResponseEntity.status(200).body(idExiste)).orElse(ResponseEntity.status(404).build());
 	}
 	
-	public ResponseEntity<Usuario>postarUsuario(Usuario novoemail){
-		Optional<Usuario>usuarioExiste = crudrepository.findByEmail(novoemail.getEmail());
+	public ResponseEntity<Usuario>postarUsuario(UsuarioDTO dto){
+		Optional<Usuario>usuarioExiste = crudrepository.findByEmail(dto.transformaParaObjeto().getEmail());
 		
 		if(usuarioExiste.isPresent()) {
 			return ResponseEntity.status(406).build();
 		}else {
-			return ResponseEntity.ok(crudrepository.save(novoemail));
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			String senhaCriptografada = encoder.encode(dto.getSenha());
+			dto.setSenha(senhaCriptografada);
+			return ResponseEntity.ok(crudrepository.save(dto.transformaParaObjeto()));
 		}
 	}
 	
