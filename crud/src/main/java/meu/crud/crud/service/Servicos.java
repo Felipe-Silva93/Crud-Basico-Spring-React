@@ -51,13 +51,13 @@ public class Servicos {
 	
 	public Optional<?>pegarCredenciais(UsuarioLoginDTO dadosParaLogar){
 		return crudrepository.findByEmail(dadosParaLogar.getEmail())
-				.map(usuarioExistente->{
+				.map(usuarioExistente -> {
 					BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 					
 					if(encoder.matches(dadosParaLogar.getSenha(),usuarioExistente.getSenha())) {
 						String estruturaBasic = dadosParaLogar.getEmail()+":"+dadosParaLogar.getSenha();
 						byte[]autorizacaoBase64 = Base64.encodeBase64(estruturaBasic.getBytes(Charset.forName("US-ASCII")));
-						String autorizacaoHeader = "Basic "+ne String(autorizacaoBase64);
+						String autorizacaoHeader = "Basic "+new String(autorizacaoBase64);
 						
 						
 						dadosParaLogar.setToken(autorizacaoHeader);
