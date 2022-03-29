@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import meu.crud.crud.service.Servicos;
 import meu.crud.crud.usuario.Usuario;
-import meu.crud.crud.usuarioDTO.UsuarioDTO;
+import meu.crud.crud.usuarioDTO.UsuarioPostDTO;
 
 @RestController
 @RequestMapping("/crud")
@@ -41,7 +41,7 @@ public class CrudController {
 	}
 	
 	@PostMapping("/cadastrar")
-	public ResponseEntity<Usuario>postar(@RequestBody UsuarioDTO dto ){
+	public ResponseEntity<Usuario>postar(@RequestBody UsuarioPostDTO dto ){
 		
 		return servicos.postarUsuario(dto);
 	}

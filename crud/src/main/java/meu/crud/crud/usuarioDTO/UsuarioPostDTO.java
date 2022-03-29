@@ -2,7 +2,7 @@ package meu.crud.crud.usuarioDTO;
 
 import meu.crud.crud.usuario.Usuario;
 
-public class UsuarioDTO {
+public class UsuarioPostDTO {
 
 	private String nome;
 	private String email;

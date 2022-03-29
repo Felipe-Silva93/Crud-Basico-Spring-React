@@ -1,8 +1,10 @@
 package meu.crud.crud.service;
 
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,7 +12,8 @@ import org.springframework.stereotype.Service;
 
 import meu.crud.crud.repository.CrudRepository;
 import meu.crud.crud.usuario.Usuario;
-import meu.crud.crud.usuarioDTO.UsuarioDTO;
+import meu.crud.crud.usuarioDTO.UsuarioLoginDTO;
+import meu.crud.crud.usuarioDTO.UsuarioPostDTO;
 
 @Service
 public class Servicos {
@@ -33,7 +36,7 @@ public class Servicos {
 				.map(idExiste-> ResponseEntity.status(200).body(idExiste)).orElse(ResponseEntity.status(404).build());
 	}
 	
-	public ResponseEntity<Usuario>postarUsuario(UsuarioDTO dto){
+	public ResponseEntity<Usuario>postarUsuario(UsuarioPostDTO dto){
 		Optional<Usuario>usuarioExiste = crudrepository.findByEmail(dto.transformaParaObjeto().getEmail());
 		
 		if(usuarioExiste.isPresent()) {
@@ -44,6 +47,33 @@ public class Servicos {
 			dto.setSenha(senhaCriptografada);
 			return ResponseEntity.ok(crudrepository.save(dto.transformaParaObjeto()));
 		}
+	}
+	
+	public Optional<?>pegarCredenciais(UsuarioLoginDTO dadosParaLogar){
+		return crudrepository.findByEmail(dadosParaLogar.getEmail())
+				.map(usuarioExistente->{
+					BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+					
+					if(encoder.matches(dadosParaLogar.getSenha(),usuarioExistente.getSenha())) {
+						String estruturaBasic = dadosParaLogar.getEmail()+":"+dadosParaLogar.getSenha();
+						byte[]autorizacaoBase64 = Base64.encodeBase64(estruturaBasic.getBytes(Charset.forName("US-ASCII")));
+						String autorizacaoHeader = "Basic "+ne String(autorizacaoBase64);
+						
+						
+						dadosParaLogar.setToken(autorizacaoHeader);
+						dadosParaLogar.setId(usuarioExistente.getId());
+						dadosParaLogar.setNome(usuarioExistente.getNome());
+						dadosParaLogar.setSenha(usuarioExistente.getSenha());
+						return Optional.ofNullable(dadosParaLogar);
+					}else {
+						return Optional.empty();
+					}
+					
+				
+					
+					
+				}).orElse(Optional.empty());
+		
 	}
 	
 	public ResponseEntity<Usuario>atualizarUsuario(Usuario usuarioAtualizar){
