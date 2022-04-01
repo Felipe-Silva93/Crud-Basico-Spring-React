@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import meu.crud.crud.service.Servicos;
 import meu.crud.crud.usuario.Usuario;
+import meu.crud.crud.usuarioDTO.UsuarioLoginDTO;
 import meu.crud.crud.usuarioDTO.UsuarioPostDTO;
 
 @RestController
@@ -50,5 +51,12 @@ public class CrudController {
 	public ResponseEntity<Usuario>atualizar(@PathVariable(value="id")Long id,@Valid @RequestBody Usuario usuario){
 		
 		return servicos.atualizarUsuario(usuario);
+	}
+	
+	@PutMapping("/autorizacao")
+	public ResponseEntity<?>autorizacao(@Valid @RequestBody UsuarioLoginDTO dadosParaLogar){
+		return servicos.pegarCredenciais(dadosParaLogar)
+				.map(usuarioAutorizado ->ResponseEntity.ok(usuarioAutorizado))
+				.orElse(ResponseEntity.status(401).build());
 	}
 }
