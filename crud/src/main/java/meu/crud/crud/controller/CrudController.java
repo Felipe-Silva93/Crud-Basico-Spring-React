@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +31,7 @@ public class CrudController {
 	@Autowired
 	private Servicos servicos;
 	
-	@GetMapping
+	@GetMapping("/todos")
 	public ResponseEntity<List<Usuario>>pegarTodos(){
 		
 		return servicos.pegarAll();
@@ -47,16 +48,21 @@ public class CrudController {
 		return servicos.postarUsuario(dto);
 	}
 	
-	@PutMapping("/atualizar/{id}")
-	public ResponseEntity<Usuario>atualizar(@PathVariable(value="id")Long id,@Valid @RequestBody Usuario usuario){
+	@PutMapping("/atualizar")
+	public ResponseEntity<Usuario>atualizar(@Valid @RequestBody Usuario usuario){
 		
 		return servicos.atualizarUsuario(usuario);
 	}
 	
-	@PutMapping("/autorizacao")
-	public ResponseEntity<?>autorizacao(@Valid @RequestBody UsuarioLoginDTO dadosParaLogar){
+	@PutMapping("/logar")
+	public ResponseEntity<?>logar(@Valid @RequestBody UsuarioLoginDTO dadosParaLogar){
 		return servicos.pegarCredenciais(dadosParaLogar)
 				.map(usuarioAutorizado ->ResponseEntity.ok(usuarioAutorizado))
 				.orElse(ResponseEntity.status(401).build());
+	}
+	
+	@DeleteMapping("/deletar/{id}")
+	public ResponseEntity<Object>deletar(@PathVariable Long id){
+		return servicos.deletar(id);
 	}
 }

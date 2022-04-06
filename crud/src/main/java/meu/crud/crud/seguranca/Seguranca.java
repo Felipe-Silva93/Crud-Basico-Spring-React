@@ -26,7 +26,7 @@ public class Seguranca extends WebSecurityConfigurerAdapter {
 	
  	/*
  	 * autenticando em memoria
- 	 * 
+ 	 * gg
  	 * @Override
  	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
  		auth.inMemoryAuthentication().withUser("admin").password(passwordEnconder().encode("admin")).authorities("ROLE_ADMIN");
@@ -44,7 +44,7 @@ public class Seguranca extends WebSecurityConfigurerAdapter {
  	protected void configure(HttpSecurity http) throws Exception {
  		http.authorizeRequests()
  			.antMatchers(HttpMethod.POST,"/crud/cadastrar").permitAll()
- 			.antMatchers(HttpMethod.PUT,"/crud/autorizacao").permitAll()
+ 			.antMatchers(HttpMethod.PUT,"/crud/logar").permitAll()
  			.anyRequest().authenticated()
  			.and().httpBasic()
  			.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

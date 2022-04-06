@@ -80,10 +80,23 @@ public class Servicos {
 		return crudrepository.findByEmail(usuarioAtualizar.getEmail())
 				.map(usuarioExistente->{
 					usuarioExistente.setNome(usuarioAtualizar.getNome());
-					usuarioExistente.setSenha(usuarioAtualizar.getSenha());
-					return ResponseEntity.status(201).body(crudrepository.save(usuarioAtualizar));
+					BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+					String senhaCriptografada = encoder.encode(usuarioAtualizar.getSenha());
+					usuarioExistente.setSenha(senhaCriptografada);
+					return ResponseEntity.status(201).body(crudrepository.save(usuarioExistente));
 					
 				}).orElse(ResponseEntity.status(401).build());
+	}
+	
+	public ResponseEntity<Object>deletar(Long id){
+		
+		Optional<Usuario> idExistente = crudrepository.findById(id);
+		if (idExistente.isEmpty()) {
+			return ResponseEntity.status(400).build();
+		}else {
+			crudrepository.deleteById(id);
+			return ResponseEntity.status(200).build();
+		}
 	}
 	
 	
