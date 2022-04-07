@@ -21,15 +21,15 @@ public class UserDetailImplementeService implements UserDetailsService {
 	private CrudRepository repository;
 	
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		
-		Optional<Usuario>usuarioExistente = repository.findByEmail(username);
+		Optional<Usuario>usuarioExistente = repository.findByEmail(email);
 		
 		if(usuarioExistente.isPresent()) {
 			return new UserDetailImplemente(usuarioExistente.get());
 		}
 		else {
-			throw new UsernameNotFoundException(username + " não encontrado");
+			throw new UsernameNotFoundException(email + " não encontrado");
 		}
 		
 	}

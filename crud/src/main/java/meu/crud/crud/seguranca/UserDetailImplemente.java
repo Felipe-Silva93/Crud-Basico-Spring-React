@@ -12,16 +12,16 @@ public class UserDetailImplemente implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String email;
-	private String senha;
+	private String userName;
+	private String password;
 	private List<GrantedAuthority> authorities;
 	
 	
 	
 	public UserDetailImplemente(Usuario usuario) {
-		super();
-		this.email = usuario.getEmail();
-		this.senha = usuario.getSenha();
+		
+		this.userName = usuario.getEmail();
+		this.password = usuario.getSenha();
 		
 	}
 	//  autorizaçoes que vai para dentro o spring e fica no mesmo guardado
@@ -34,13 +34,13 @@ public class UserDetailImplemente implements UserDetails {
 	@Override
 	public String getPassword() {
 		
-		return senha;
+		return password;
 	}
 
 	@Override
 	public String getUsername() {
 		
-		return email;
+		return userName;
 	}
 
 	@Override

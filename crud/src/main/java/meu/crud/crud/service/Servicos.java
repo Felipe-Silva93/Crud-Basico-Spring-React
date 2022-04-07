@@ -37,7 +37,7 @@ public class Servicos {
 	}
 	
 	public ResponseEntity<Usuario>postarUsuario(UsuarioPostDTO dto){
-		Optional<Usuario>usuarioExiste = crudrepository.findByEmail(dto.transformaParaObjeto().getEmail());
+		Optional<Usuario>usuarioExiste = crudrepository.findByEmail(dto.getEmail());
 		
 		if(usuarioExiste.isPresent()) {
 			return ResponseEntity.status(406).build();
@@ -77,6 +77,7 @@ public class Servicos {
 	}
 	
 	public ResponseEntity<Usuario>atualizarUsuario(Usuario usuarioAtualizar){
+		
 		return crudrepository.findByEmail(usuarioAtualizar.getEmail())
 				.map(usuarioExistente->{
 					usuarioExistente.setNome(usuarioAtualizar.getNome());
