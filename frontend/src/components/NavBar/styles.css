@@ -1,0 +1,30 @@
+header{
+    background-color:var(--color-primary) ;
+    height:60px;
+    display: flex;
+    align-items: center;
+}
+
+.crud-nav-content{
+    display:flex;
+    justify-content: space-between; /*deixar o elemento um do lado do outro*/
+    align-items: center;
+    color: white;
+
+}
+
+.crud-contact-container{
+    display: flex;
+    align-items: center;
+
+}
+.crud-contact-link{
+    margin: 0 0 0 10px;
+    font-size: 12px;
+}
+.crud-nav-content h1{
+    margin: 0;
+
+    font-weight: 700;
+    font-size: 24px;
+}
