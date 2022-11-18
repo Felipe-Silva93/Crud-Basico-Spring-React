@@ -42,6 +42,8 @@ public class Seguranca extends WebSecurityConfigurerAdapter {
 	//metodo para autorizar rotas de acesso
 	@Override
  	protected void configure(HttpSecurity http) throws Exception {
+		
+	    http.headers().frameOptions().disable();
  		http.authorizeRequests()
  			.antMatchers(HttpMethod.POST,"/crud/cadastrar").permitAll()
  			.antMatchers(HttpMethod.PUT,"/crud/logar").permitAll()

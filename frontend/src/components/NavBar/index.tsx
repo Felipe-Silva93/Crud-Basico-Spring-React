@@ -1,24 +1,28 @@
-import{ReactComponent as GithubIncon} from'assets/img/github.svg';
+import React from 'react';
+import {Navbar, Nav} from 'react-bootstrap';
+import {Link} from 'react-router-dom'
 import './styles.css';
 
-function NavBar(){
+const Header: React.FC=()=>{
 
     return(
-        <header>
-            <nav className="container">
-                <div className="crud-nav-content">
-                    <h1>PaginaDeCRUD</h1>
-                    <a href="https://github.com/Felipe-Silva93">
-                        <div className="crud-contact-container">
-                            <GithubIncon/>
-                            <p className="crud-contact-link">/PaginaDeCRUD-Felipe</p>
-                        </div>
-                    </a>
-                </div>
-            </nav>
-        </header>
-    );
+    <Navbar bg="light" expand="lg">
    
+        <Navbar.Brand href="#home">PaginaDeCRUD</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Item as ={Link} className ="nav-link" to ="/form">Formulario</Nav.Item>
+            <Nav.Item  as={Link} className ="nav-link"  to ="/listing">crud</Nav.Item>
+            <Nav.Item  as={Link} className ="nav-link"  to ="/Cadastro">cadastro</Nav.Item>
+
+            
+          </Nav>
+        </Navbar.Collapse>
+    
+    </Navbar>
+  );
 }
 
-export default NavBar;
+
+export default Header;

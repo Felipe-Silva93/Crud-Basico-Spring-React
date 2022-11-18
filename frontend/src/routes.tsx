@@ -1,3 +1,4 @@
+import Cadastro from 'pages/Casatro';
 import React from 'react';
 import { Switch, Route }  from 'react-router-dom'
 import NavBar from "./components/NavBar";
@@ -6,13 +7,15 @@ import Listing from "./pages/Listing";
 
 
 const Routes: React.FC = () => {
-    <NavBar/>
+   
     return (
+       
     
              <Switch>
         
                 <Route path ="/form" exact component ={Form} />
-                <Route path ="/tela" exact component ={Listing} />
+                <Route path ="/listing" exact component ={Listing} />
+                <Route path ="/Cadastro" exact component ={Cadastro} />
             </Switch>
     );
 

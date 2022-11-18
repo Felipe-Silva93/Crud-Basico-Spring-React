@@ -26,6 +26,7 @@ import meu.crud.crud.usuarioDTO.UsuarioPostDTO;
 @RestController
 @RequestMapping("/crud")
 @CrossOrigin("*")
+
 public class CrudController {
 
 	@Autowired
