@@ -1,6 +1,8 @@
 import { Badge, Button, Table } from "react-bootstrap";
 import React,{useState, useEffect } from 'react';
+import './styles.css'
 import api from 'api'
+import { useHistory } from "react-router-dom";
 
 interface Ilisting{
     id: number;
@@ -16,12 +18,17 @@ const Listing: React.FC=()=>{
 
 
     const[listings, setListings]=useState<Ilisting[]>([])
+    const history = useHistory()
 
     useEffect(() => {
         loadListing()
 
 
     },[])
+
+    function novoCadastro(){
+        history.push('/Cadastro')
+    }
 
 
 
@@ -36,7 +43,11 @@ const Listing: React.FC=()=>{
     return(
     <div className="container">
         <br />
-        <h1>lista de cadastros</h1>
+        <div className="listing-header ">
+            <h1>lista de cadastros</h1>
+            <Button variant="dark "size="sm" onClick={novoCadastro}>Nova cadastro</Button>
+        </div>
+        
         <br />
         <Table striped bordered hover className= "text-center">
             <thead>

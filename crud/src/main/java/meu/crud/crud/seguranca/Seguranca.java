@@ -47,6 +47,8 @@ public class Seguranca extends WebSecurityConfigurerAdapter {
  		http.authorizeRequests()
  			.antMatchers(HttpMethod.POST,"/crud/cadastrar").permitAll()
  			.antMatchers(HttpMethod.PUT,"/crud/logar").permitAll()
+ 			.antMatchers(HttpMethod.GET,"/crud/todos").permitAll()
+
  			.anyRequest().authenticated()
  			.and().httpBasic()
  			.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
