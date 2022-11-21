@@ -7,7 +7,7 @@ interface Ilisting{
     nome: string ;
     email:string;
     senha:number;
-    status:number;
+    admin:boolean;
 
 }
 
@@ -17,7 +17,7 @@ const Listing: React.FC=()=>{
 
     const[listings, setListings]=useState<Ilisting[]>([])
 
-    useEffect(()=>{
+    useEffect(() => {
         loadListing()
 
 
@@ -27,42 +27,63 @@ const Listing: React.FC=()=>{
 
     async function loadListing(){
 
-        const responde = await api.get('/crud')
+        const responde = await api.get('/crud/todos')
         console.log(responde)
         setListings(responde.data)
     }
 
 
     return(
-    <Table striped bordered hover>
-        <thead>
-            <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-                {
-                    listings.map(listing=>(
+    <div className="container">
+        <br />
+        <h1>lista de cadastros</h1>
+        <br />
+        <Table striped bordered hover className= "text-center">
+            <thead>
+                <tr>
+                <th>id</th>
+                <th>email</th>
+                <th>nome</th>
+                <th>Usenha</th>
+                <th>admin</th>
+                <th>ação</th>
 
-                        <tr>
-                            <td>Mark</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                    
-                    ))
-                }
-        </tbody>        
+                </tr>
+            </thead>
+            <tbody>
                 
-            
-       
-      
-    </Table>
+                
+                    {
+                        listings.map(listing=>(
+
+                            <tr key = {listing.id}>
+                                <td>{listing.id}</td>
+                                <td>{listing.email}</td>
+                                <td>{listing.nome}</td>
+                                <td>{listing.senha}</td>
+                                <td>
+                                <Badge bg={listing.admin?"success":"warning"}>
+                                    {listing.admin?"eAdmin":"naoAdmin"}</Badge>
+
+                                </td>
+                                <td>
+                                    <Button size="sm">editar</Button>{' '}
+                                    <Button size="sm">salvar</Button>{' '}
+                                    <Button size="sm">visualizar</Button>{' '}
+                                    <Button size="sm">removar</Button>{' '}
+                                </td>
+                                
+                            </tr>
+                        
+                        ))
+                    }
+            </tbody>        
+                    
+                
+        
+        
+        </Table>
+    </div>
 
     );
 
