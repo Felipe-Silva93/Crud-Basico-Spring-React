@@ -37,7 +37,7 @@ function Form(){
                         <button type="submit" className="btn btn-primary dsmovie-btn">Salvar</button>
                     </div>
                 </form >
-                <Link to="/Cadastro">
+                <Link to="/CadastroExter">
                     <button className="btn btn-primary dsmovie-btn mt-3">Cancelar</button>
                 
                 </Link>

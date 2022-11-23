@@ -15,6 +15,7 @@ const Header: React.FC=()=>{
             <Nav.Item as ={Link} className ="nav-link" to ="/form">Formulario</Nav.Item>
             <Nav.Item  as={Link} className ="nav-link"  to ="/listing">crud</Nav.Item>
             <Nav.Item  as={Link} className ="nav-link"  to ="/Cadastro">cadastro</Nav.Item>
+            <Nav.Item  as={Link} className ="nav-link"  to ="/CadastroExter">CadastroExter</Nav.Item>
 
             
           </Nav>

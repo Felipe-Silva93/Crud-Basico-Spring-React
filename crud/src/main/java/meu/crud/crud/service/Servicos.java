@@ -76,9 +76,9 @@ public class Servicos {
 		
 	}
 	
-	public ResponseEntity<Usuario>atualizarUsuario(Usuario usuarioAtualizar){
+	public ResponseEntity<?>atualizarUsuario(Long id,Usuario usuarioAtualizar){
 		
-		return crudrepository.findByEmail(usuarioAtualizar.getEmail())
+		return crudrepository.findById(id)
 				.map(usuarioExistente->{
 					usuarioExistente.setNome(usuarioAtualizar.getNome());
 					BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

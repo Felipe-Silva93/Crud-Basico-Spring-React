@@ -16,4 +16,6 @@ public interface CrudRepository extends JpaRepository<Usuario, Long> {
 	
 	public List<Usuario> findAllByNomeContainingIgnoreCase(String nome);
 	public Optional<Usuario>findByEmail(String email);
+	
+
 }

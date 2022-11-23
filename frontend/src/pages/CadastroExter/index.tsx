@@ -1,12 +1,9 @@
 import { Badge, Button, Form, Table } from "react-bootstrap";
 import React,{useState, useEffect, ChangeEvent } from 'react';
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import api from 'api'
 
-interface IParamsProps {
-    id: string;
-}
 
 interface Iform{
     
@@ -18,11 +15,13 @@ interface Iform{
 }
 
 
-const Cadastro: React.FC=() => {
+const CadastroExter: React.FC=() => {
     
-   
+
+    const [showElement, setShowElement] = useState(false)
+  const showOrHide = () => setShowElement(true)
     const history = useHistory()
-    const { id } = useParams<IParamsProps>();
+
     const[model, setModel] =useState<Iform>({
 
     nome: '',
@@ -30,19 +29,6 @@ const Cadastro: React.FC=() => {
     senha:0
 
     })
-
-    useEffect(()=>{
-
-    if (id != undefined )  {
-
-        findEditar(id )
-    }  
-     console.log(id)
-    },[id])
-
-    function crud(){
-        history.push('/listing')
-    }
 
     function updated(e: ChangeEvent<HTMLInputElement>){
         
@@ -57,31 +43,14 @@ const Cadastro: React.FC=() => {
     async function onSubmit(e: ChangeEvent<HTMLFormElement>){
 
         e.preventDefault()
-        if (id != undefined )  {
-
-            const response = await api.put (`/crud/atualizar/${id}`,model)
-        }else{
-            const response = await api.post ('/crud/cadastrar',model)
-        }  
-        
-        
-        back()
+        const response = await api.post ('/crud/cadastrar',model)
+        console.log(response)
+        login()
     }
 
-   async function findEditar(id:string  ) {
-    const response = await api.get(`/crud/id/${id}`)
-    setModel({
-        nome: response.data.nome,
-        email:response.data.email,
-        senha:response.data.senha
 
-
-    })
-   }
-
-
-    function back(){
-        history.goBack()
+    function login(){
+        history.push('/form')
     }
 
     
@@ -100,21 +69,21 @@ const Cadastro: React.FC=() => {
                 <Form.Group className="mb-3">
                     <Form.Label>E-mail:</Form.Label>
                     <Form.Control 
-                    type="text" name ="email" value={model.email}
+                    type="text" name ="email" 
                     onChange={(e:ChangeEvent<HTMLInputElement>) => updated(e)} 
                     placeholder="email meu bom" />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
                     <Form.Label>Nome:</Form.Label>
-                    <Form.Control type="text" name ="nome" value={model.nome} 
+                    <Form.Control type="text" name ="nome" 
                     onChange={(e:ChangeEvent<HTMLInputElement>) => updated(e)}
                     placeholder="seu lindo nome" />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
                     <Form.Label>senha:</Form.Label>
-                    <Form.Control type="number"name ="senha" value={model.senha}
+                    <Form.Control type="number"name ="senha"
                     onChange={(e:ChangeEvent<HTMLInputElement>) => updated(e)}
                     placeholder="senha jhow" />
                 </Form.Group>
@@ -123,7 +92,7 @@ const Cadastro: React.FC=() => {
                     <Form.Check type="checkbox" label="Can't check this" disabled />
                 </Form.Group>
                 <Button  type="submit"size="sm" >Salvar</Button>{' '}
-                <Button  type="submit"size="sm"onClick={crud} >Cancelar</Button>{' '}
+                <Button  type="submit"size="sm" onClick={login} >Cancelar</Button>{' '}
              </Form>
 
                         
@@ -137,4 +106,4 @@ const Cadastro: React.FC=() => {
 
 }
 
-export default Cadastro;
+export default CadastroExter;
