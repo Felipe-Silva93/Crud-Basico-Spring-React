@@ -82,7 +82,6 @@ const Listing: React.FC=()=>{
                                 </td>
                                 <td>
                                     <Button size="sm"onClick={()=>editar(listing.id)}>editar</Button>{' '}
-                                    <Button size="sm">salvar</Button>{' '}
                                     <Button size="sm">visualizar</Button>{' '}
                                     <Button size="sm">removar</Button>{' '}
                                 </td>

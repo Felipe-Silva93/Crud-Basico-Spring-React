@@ -45,13 +45,19 @@ const CadastroExter: React.FC=() => {
         e.preventDefault()
         const response = await api.post ('/crud/cadastrar',model)
         console.log(response)
-        login()
+        back()
+        
     }
 
 
     function login(){
         history.push('/form')
     }
+    function back(){
+        history.goBack()
+    }
+
+    
 
     
 
