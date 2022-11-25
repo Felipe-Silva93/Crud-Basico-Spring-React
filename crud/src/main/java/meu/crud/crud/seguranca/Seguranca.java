@@ -53,6 +53,7 @@ public class Seguranca extends WebSecurityConfigurerAdapter {
  			.antMatchers(HttpMethod.PUT,"/crud/*").permitAll()
  			.antMatchers(HttpMethod.GET,"/crud/**").permitAll()
  			.antMatchers(HttpMethod.GET,"/crud/id{id}").permitAll()
+ 			.antMatchers(HttpMethod.DELETE,"/crud/deletar/{id}").permitAll()
 
 
  			.anyRequest().authenticated()

@@ -36,6 +36,15 @@ const Listing: React.FC=()=>{
     }
 
 
+    async function remover(id: number){
+        const responde = await api.delete(`crud/deletar/${id}`)
+        loadListing()
+
+    }
+
+
+
+
 
     async function loadListing(){
 
@@ -82,8 +91,7 @@ const Listing: React.FC=()=>{
                                 </td>
                                 <td>
                                     <Button size="sm"onClick={()=>editar(listing.id)}>editar</Button>{' '}
-                                    <Button size="sm">visualizar</Button>{' '}
-                                    <Button size="sm">removar</Button>{' '}
+                                    <Button size="sm"onClick={()=>remover(listing.id)}>removar</Button>{' '}
                                 </td>
                                 
                             </tr>

@@ -21,6 +21,7 @@ const Routes: React.FC = () => {
                 <Route path ="/CadastroExter" exact component ={CadastroExter} />
                 <Route path ="/Cadastro/:id" exact component ={Cadastro} />
 
+
             </Switch>
     );
 
