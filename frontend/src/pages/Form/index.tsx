@@ -1,53 +1,64 @@
+import { Badge, Button, Form, Table } from "react-bootstrap";
+import React,{useState, useEffect, ChangeEvent } from 'react';
+import { useHistory, useParams } from "react-router-dom";
 
-import { Link } from 'react-router-dom';
-import './styles.css'
+import api from 'api'
 
-function Form(){
 
-    const movie ={
 
-        id:1,
-        imagem: "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/jBJWaqoSCiARWtfV0GlqHrcdidd.jpg",
-        titulo:"oBruxo",
-        count:2,
-        score:4.5
-    };
+
+const Forms: React.FC=() => {
+
+
+    const [email,setEmail] = useState("");
+    const [senha,setSenha] = useState("");
+    
+   
+   const handleSubmit = (e: { preventDefault: () => void; })=>{
+    e.preventDefault();
+    console.log("submit",{email, senha});
+   };
+
+
 
     return(
-        <div className="dsmovie-form-container">
-            <img className="dsmovie-movie-card-image" src={movie?.imagem} alt={movie?.titulo} />
-            <div className="dsmovie-card-bottom-container">
-                <h3>{movie?.titulo}</h3>
-                <form className="dsmovie-form">
-                    <div className="form-group dsmovie-form-group">
-                        <label htmlFor="email">Informe seu email</label>
-                        <input type="email" className="form-control" id="email" />
-                    </div>
-                    <div className="form-group dsmovie-form-group">
-                        <label htmlFor="score">Informe sua avaliação</label>
-                        <select className="form-control" id="score">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                    <div className="dsmovie-form-btn-container">
-                        <button type="submit" className="btn btn-primary dsmovie-btn">Salvar</button>
-                    </div>
-                </form >
-                <Link to="/CadastroExter">
-                    <button className="btn btn-primary dsmovie-btn mt-3">Cancelar</button>
+        <div className="container">
+            <br />
+                <h1>Login</h1>
                 
-                </Link>
+            <br />
+            <div className="container">
+            
+            <Form onSubmit={handleSubmit} >
+
+                <Form.Group className="mb-3">
+                    <Form.Label>E-mail:</Form.Label>
+                    <Form.Control 
+                    type="text" name ="email" value={email} onChange={(e)=>setEmail(e.target.value)}
+                    placeholder="email meu bom" />
+                </Form.Group>
+
+
+                <Form.Group className="mb-3">
+                    <Form.Label>senha:</Form.Label>
+                    <Form.Control type="password"name ="senha" value={senha} onChange={(e)=>setSenha(e.target.value)}
+                    placeholder="senha jhow" />
+                </Form.Group>
                 
+                <Button  type="submit"size="sm" >Cadastre-se</Button>{' '}
+                <Button  type="submit"size="sm" >Logar</Button>{' '}
                
+             </Form>
+
+                        
+
+            </div>
+
+        </div>
 
 
-            </div >
-        </div >
     );
+
 }
 
-export default Form;
+export default Forms;
